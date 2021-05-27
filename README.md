@@ -15,9 +15,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ### Pré-requisitos
 
-##Rodar Migrations
-
 ```bash
+Rodar Migrations: 
 yarn typeorm migration:run
 ```
 
