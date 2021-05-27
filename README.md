@@ -27,6 +27,11 @@ query para adicionar tipos de telefone
 insert into telefone_tipo(tipo, whatsapp) values('celular', true), ('telefone fixo', false);
 ```
 
+### Banco de dados
+
+Para configurar o banco basta mmudar as configurações no arquivo ```bash 
+ormconfig.json
+```
 
 ### 🎲 Rodando o Back End (servidor)
 
