@@ -8,7 +8,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Node.js][nodejs]
 - [React][reactjs]
 - [TypeScript][typescript]
-- [TypeScript][typescript]
 - [ChakraUI][chakraui]
 
 
