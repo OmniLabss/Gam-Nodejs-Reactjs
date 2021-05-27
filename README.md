@@ -15,6 +15,12 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ### Pré-requisitos
 
+##Rodar Migrations
+
+```bash
+yarn typeorm migration:run
+```
+
 ```bash 
 Caso banco não tenha o módulo para gerar uuid : 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
