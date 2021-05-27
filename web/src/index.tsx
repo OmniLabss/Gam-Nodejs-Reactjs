@@ -6,9 +6,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Routes from './routes';
 
+import {theme} from './styles/theme';
+
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider resetCSS theme={theme}>
     <BrowserRouter>
         <Routes />
     </BrowserRouter>

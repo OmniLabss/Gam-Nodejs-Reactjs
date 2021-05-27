@@ -61,7 +61,7 @@ function Home() {
   useEffect(() => {
     api.get('/cliente', {
       params: {
-        conteudo: buscar ? buscar :  ''
+        conteudo: buscar
       }
     }).then(response => {
       setCliente(response.data)
@@ -76,15 +76,15 @@ function Home() {
         cpf: data.cpf
       })
 
-      const filteredClient = cliente.map((group) => {
-        return group.id === client_id
+      const filteredClient = cliente.map((c) => {
+        return c.id === client_id
           ? {
-              ...group,
+              ...c,
               nome: data.nome,
               email: data.email,
               cpf: data.cpf
             }
-          : group;
+          : c;
       });
 
       setCliente(filteredClient);
@@ -116,7 +116,8 @@ function Home() {
       <Flex justifyContent="space-between" alignItems="center">
       <Input ml="12" name="buscar" onChange={e => setBuscar(e.target.value ? e.target.value : '')} mt="8" />
           <Link href="/criar-cliente">
-            <Button size="md" mt="8" mr="6" leftIcon={<RiAddLine size="24" />}>
+            <Button         bgColor="gray.800"
+ size="md" mt="8" mr="6" leftIcon={<RiAddLine size="24" />}>
                 Criar Cliente
             </Button>
           </Link>
@@ -212,7 +213,7 @@ function Home() {
               </Tbody>
             ))}
         <ModalEditCliente
-            editingClient={editClient as ICliente}
+            editingClient={editClient as any}
             isOpen={isOpen}
             onClose={onClose}
             handleUpdateClient={handleEditClient}

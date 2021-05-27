@@ -12,8 +12,8 @@ interface IRequest {
   cpf: string;
   email: string;
   telefoneDados?: [{
-      telefone_tipo: string;
-      telefone: string;
+      telefone_tipo?: string;
+      telefone?: string;
   }];
 }
 
@@ -36,17 +36,15 @@ class CriarClienteUseCase {
           nome
         })
 
-        if(telefoneDados) {
-          await Promise.all(
-            telefoneDados.map(async telefone => {
+        await Promise.all(
+          telefoneDados.map(async telefone => {
                 await this.clienteTelefoneRepository.create({
                   cliente_id: cliente.id,
                   numero: telefone.telefone,
                   telefone_tipo_id: telefone.telefone_tipo
                 })
-            })
-          )
-        }
+          })
+        )
 
         return cliente;
     }

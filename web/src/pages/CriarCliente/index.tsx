@@ -29,11 +29,14 @@ interface IFormData {
   cpf: string;
 }
 
+interface ITeleonfes {
+  telefone: string;
+  telefone_tipo: string;
+}
+
 function CriarCliente() {
   const [telefoneTipos, setTelefoneTipos] = useState<ITelefoneTipos[]>();
-  const [telefones, setTelefones] = useState([
-    { telefone: '', telefone_tipo: '' }
-  ]);
+  const [telefones, setTelefones] = useState<ITeleonfes[]>([]);
 
   const history = useHistory();
 
@@ -66,24 +69,26 @@ function CriarCliente() {
     ])
   }, [])
 
-  const handleCriarCliente = useCallback(async (data: IFormData) => {
-      await api.post('/cliente', {
-        nome: data.nome,
-        email: data.email,
-        cpf: data.cpf,
-        telefoneDados: telefones 
-      })
-        toast({
-          title: 'Sucesso.',
-          description: 'Cliente foi criado com sucesso',
-          status: 'success',
-          duration: 2000,
-          position: 'top-right',
-          isClosable: true,
-        });
-  
-        history.push('/')
-  }, [history, telefones, toast])
+  const handleCriarCliente = useCallback((data: IFormData) => {
+    const filteredTelefone = telefones.filter(e => {
+      return e.telefone_tipo !== '' || e.telefone !== ''
+    })
+    api.post('/cliente', {
+      nome: data.nome,
+      email: data.email,
+      cpf: data.cpf,
+      telefoneDados: filteredTelefone 
+    })
+    
+    toast({
+      title: 'Sucesso.',
+      description: 'Cliente foi criado com sucesso',
+      status: 'success',
+      duration: 2000,
+      position: 'top-right',
+      isClosable: true,
+    });
+  }, [telefones])
 
   return (
     <Box
@@ -126,7 +131,6 @@ function CriarCliente() {
             />
 
               <Button
-                type="submit"
                 bg="messenger.600"
                 onClick={addNewTelefone}
               >
@@ -139,6 +143,7 @@ function CriarCliente() {
               <Input
                 onChange={e => setTelefoneItemValue(index, 'telefone', e.target.value)}
                 name="telefone"
+                value={tel.telefone}
                 label="Telefone"
                 w="100%"
               />
@@ -146,12 +151,13 @@ function CriarCliente() {
               <Select
                 onChange={e => setTelefoneItemValue(index, 'telefone_tipo', e.target.value)}
                 label="Tipo de Telefone"
+                value={tel.telefone_tipo}
                 name="telefone_tipo"
                 placeholder="Selecione a jornada"
                 >
                 {telefoneTipos &&
                   telefoneTipos.map((telefone) => (
-                    <option key={telefone.id} value={telefone.id}>
+                    <option style={{backgroundColor: 'black'}} key={telefone.id} value={telefone.id}>
                       {telefone.tipo}
                     </option>
                   ))}

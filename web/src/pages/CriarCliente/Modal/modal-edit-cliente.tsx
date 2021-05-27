@@ -48,13 +48,19 @@ export default function ModalEditClient({
   isOpen,
   onClose,
 }: IModalProps) {
-  const { register, handleSubmit, formState } = useForm();
+  const [cpf, setCpf] = useState(editingClient && editingClient.cpf);
+  const [email, setEmail] = useState(editingClient && editingClient.email);
+  const [nome, setNome] = useState(editingClient && editingClient.nome);
 
   const handleUpdate = useCallback(
-    async (data: IEditClientData, group_id: string) => {
-      handleUpdateClient(data, group_id);
+    async (client_id: string) => {
+      handleUpdateClient({
+        cpf,
+        nome,
+        email
+      }, client_id);
     },
-    [handleUpdateClient]
+    [cpf, email, handleUpdateClient, nome]
   );
 
   return (
@@ -64,48 +70,49 @@ export default function ModalEditClient({
     >
       <Box
         as="form"
-        onSubmit={handleSubmit((data: any) =>
-          handleUpdate(data, editingClient.id)
-        )}
+        onSubmit={() =>
+          handleUpdate(editingClient.id)
+        }
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg="gray.900">
           <ModalHeader>Editar Cliente</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={4}>
             <VStack spacing={4}>
             <Input
-              {...register('nome', {required: true})}
+              onChange={e => setNome(e.target.value)}
               defaultValue={editingClient && editingClient.nome}
               label="Nome"
+              name="nome"
               w="100%"
             />
 
             <Input
-              {...register('email', {required: true})}
-              defaultValue={editingClient && editingClient.email}
-              label="Email"
-              w="100%"
-            />
-
-            <Input
-              {...register('cpf', {required: true})}
+              onChange={e => setCpf(e.target.value)}
               defaultValue={editingClient && editingClient.cpf}
               label="CPF"
+              name="cpf"
+              w="100%"
+            />
+            <Input
+              onChange={e => setEmail(e.target.value)}
+              defaultValue={editingClient && editingClient.email}
+              label="Email"
+              name="email"
               w="100%"
             />
             </VStack>
           </ModalBody>
           <ModalFooter>
             <Button
-              type="submit"
-              isLoading={formState.isSubmitting}
+              onClick={() => handleUpdateClient({cpf, email, nome},editingClient.id)}
               colorScheme="blue"
               mr={3}
             >
               Save
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button bg="black" onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Box>
