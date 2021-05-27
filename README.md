@@ -5,10 +5,10 @@
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- [Node.js][nodejs]
-- [React][reactjs]
-- [TypeScript][typescript]
-- [ChakraUI][chakraui]
+- [Node.js]
+- [React]
+- [TypeScript]
+- [ChakraUI]
 
 
 ## 🚀 Como rodar este projeto
