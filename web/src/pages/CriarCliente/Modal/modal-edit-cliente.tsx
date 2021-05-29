@@ -7,21 +7,12 @@ import {
   ModalHeader,
   ModalOverlay,
   VStack,
-  Image,
-  Input as InputChackra,
-  Heading,
   Button,
-  useColorModeValue,
-  SimpleGrid,
-  Divider,
   Box,
 } from '@chakra-ui/react';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Input } from '../../../components/Input';
-import api from '../../../services/api';
-
-import { useForm } from 'react-hook-form';
 
 type IClientPlate = {
   id: string;
@@ -112,7 +103,7 @@ export default function ModalEditClient({
             >
               Save
             </Button>
-            <Button bg="black" onClick={onClose}>Cancel</Button>
+            <Button bg="gray.800" onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Box>

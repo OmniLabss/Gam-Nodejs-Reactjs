@@ -4,8 +4,6 @@ import { Header } from '../../components/Header';
 import {
   Box,
   Flex,
-  Heading,
-  HStack,
   Table,
   Tbody,
   Td,
@@ -13,7 +11,6 @@ import {
   Th,
   Thead,
   Tr,
-  useColorModeValue,
   useDisclosure,
   useToast,
   Button,
@@ -76,18 +73,6 @@ function Home() {
         cpf: data.cpf
       })
 
-      const filteredClient = cliente.map((c) => {
-        return c.id === client_id
-          ? {
-              ...c,
-              nome: data.nome,
-              email: data.email,
-              cpf: data.cpf
-            }
-          : c;
-      });
-
-      setCliente(filteredClient);
       onClose();
 
       toast({
@@ -108,7 +93,7 @@ function Home() {
         isClosable: true,
       });
     }
-  }, [cliente, onClose, toast])
+  }, [onClose, toast])
 
   return (
     <Box>
